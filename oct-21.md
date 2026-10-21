@@ -609,3 +609,19 @@ NAME                     TYPE     VALUE
 memory_target                 big integer 0
 sys@free> 
 ```
+
+
+
+
+
+
+
+
+
+PGA
+
+
+
+![](images/2026-10-21-09-51-05-image.png)
+
+Página 41 

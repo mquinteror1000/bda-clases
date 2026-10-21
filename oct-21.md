@@ -1,7 +1,5 @@
 ## Octubre 21
 
-
-
 Ejemplo de in memory column store
 
 ```sql
@@ -244,10 +242,7 @@ prompt ===> 9b. Comprobando que la In-Memory Area ya no existe y que memory_targ
 prompt      regresó a su valor original
 show sga
 show parameter memory_target
-
 ```
-
-
 
 Ejecución
 
@@ -262,25 +257,25 @@ Copyright (c) 1982, 2025, Oracle.  All rights reserved.
 ===> 1. Parámetros de memoria actuales
 Connected.
 
-NAME				     TYPE	 VALUE
+NAME                     TYPE     VALUE
 ------------------------------------ ----------- ------------------------------
-memory_target			     big integer 0
+memory_target                 big integer 0
 
-NAME				     TYPE	 VALUE
+NAME                     TYPE     VALUE
 ------------------------------------ ----------- ------------------------------
-memory_max_target		     big integer 0
+memory_max_target             big integer 0
 
-NAME				     TYPE	 VALUE
+NAME                     TYPE     VALUE
 ------------------------------------ ----------- ------------------------------
-inmemory_size			     big integer 0
+inmemory_size                 big integer 0
 ===> 1b. Distribución actual de la SGA
 
-NAME				 VALUE_MB
+NAME                 VALUE_MB
 ------------------------------ ----------
-Fixed Size			     4.69
-Variable Size			      448
-Database Buffers		     1072
-Redo Buffers			     4.32
+Fixed Size                 4.69
+Variable Size                  448
+Database Buffers             1072
+Redo Buffers                 4.32
 
 4 rows selected.
 
@@ -296,21 +291,21 @@ ORACLE instance shut down.
 ORACLE instance started.
 
 Total System Global Area 1603287928 bytes
-Fixed Size		    4922232 bytes
-Variable Size		  369098752 bytes
-Database Buffers	 1006632960 bytes
-Redo Buffers		    4530176 bytes
-In-Memory Area		  218103808 bytes
+Fixed Size            4922232 bytes
+Variable Size          369098752 bytes
+Database Buffers     1006632960 bytes
+Redo Buffers            4530176 bytes
+In-Memory Area          218103808 bytes
 Database mounted.
 Database opened.
 
-NAME				 VALUE_MB
+NAME                 VALUE_MB
 ------------------------------ ----------
-Fixed Size			     4.69
-Variable Size			      368
-Database Buffers		      944
-Redo Buffers			     4.32
-In-Memory Area			      208
+Fixed Size                 4.69
+Variable Size                  368
+Database Buffers              944
+Redo Buffers                 4.32
+In-Memory Area                  208
 
 5 rows selected.
 
@@ -318,12 +313,12 @@ Analizar resultados, [Enter] para continuar
 
 ===> 2a. Memoria de los componentes dinámicos antes de incrementar memory_target
 
-COMPONENT		  CURRENT_MB
+COMPONENT          CURRENT_MB
 ------------------------- ----------
-shared pool			 352
-DEFAULT buffer cache		 864
-In-Memory Area			 208
-PGA Target			 512
+shared pool             352
+DEFAULT buffer cache         864
+In-Memory Area             208
+PGA Target             512
 
 4 rows selected.
 
@@ -338,12 +333,12 @@ Help: https://docs.oracle.com/error-help/db/ora-02097/
 
 ===> 2c. Memoria de los componentes dinámicos después del incremento
 
-COMPONENT		  CURRENT_MB
+COMPONENT          CURRENT_MB
 ------------------------- ----------
-shared pool			 352
-DEFAULT buffer cache		 864
-In-Memory Area			 208
-PGA Target			 512
+shared pool             352
+DEFAULT buffer cache         864
+In-Memory Area             208
+PGA Target             512
 
 4 rows selected.
 
@@ -389,9 +384,9 @@ Commit complete.
 Table altered.
 
 
-TABLE_NAME	INMEMORY   INMEMORY_P
+TABLE_NAME    INMEMORY   INMEMORY_P
 --------------- ---------- ----------
-VENTA		ENABLED    HIGH
+VENTA        ENABLED    HIGH
 
 1 row selected.
 
@@ -401,9 +396,9 @@ PL/SQL procedure successfully completed.
 
 ===> 5b. Comprobando el estado de la carga
 
-SEGMENT_NAME	POPULATE_STAT	DISCO_MB INMEMORY_MB BYTES_NOT_POPULATED
+SEGMENT_NAME    POPULATE_STAT    DISCO_MB INMEMORY_MB BYTES_NOT_POPULATED
 --------------- ------------- ---------- ----------- -------------------
-VENTA		COMPLETED	   32.32       30.43		       0
+VENTA        COMPLETED       32.32       30.43               0
 
 1 row selected.
 
@@ -422,37 +417,37 @@ PLAN_TABLE_OUTPUT
 Plan hash value: 3354199363
 
 --------------------------------------------------------------------------------------
-| Id  | Operation		     | Name  | Rows  | Bytes | Cost (%CPU)| Time     |
+| Id  | Operation             | Name  | Rows  | Bytes | Cost (%CPU)| Time     |
 --------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT	     |	     |	   8 |	 128 |	  74  (42)| 00:00:01 |
-|   1 |  HASH GROUP BY		     |	     |	   8 |	 128 |	  74  (42)| 00:00:01 |
-|*  2 |   FILTER		     |	     |	     |	     |		  |	     |
-|*  3 |    TABLE ACCESS INMEMORY FULL| VENTA | 85157 |	1330K|	  73  (42)| 00:00:01 |
+|   0 | SELECT STATEMENT         |         |       8 |     128 |      74  (42)| 00:00:01 |
+|   1 |  HASH GROUP BY             |         |       8 |     128 |      74  (42)| 00:00:01 |
+|*  2 |   FILTER             |         |         |         |          |         |
+|*  3 |    TABLE ACCESS INMEMORY FULL| VENTA | 85157 |    1330K|      73  (42)| 00:00:01 |
 --------------------------------------------------------------------------------------
 
 Predicate Information (identified by operation id):
 ---------------------------------------------------
 
    2 - filter(TRUNC(SYSDATE@!,'fmmm')>ADD_MONTHS(TRUNC(SYSDATE@!,'fmmm'),(-1))
-	      )
+          )
    3 - inmemory("FECHA">=ADD_MONTHS(TRUNC(SYSDATE@!,'fmmm'),(-1)) AND
-	      "FECHA"<TRUNC(SYSDATE@!,'fmmm'))
+          "FECHA"<TRUNC(SYSDATE@!,'fmmm'))
        filter("FECHA">=ADD_MONTHS(TRUNC(SYSDATE@!,'fmmm'),(-1)) AND
-	      "FECHA"<TRUNC(SYSDATE@!,'fmmm'))
+          "FECHA"<TRUNC(SYSDATE@!,'fmmm'))
 
 20 rows selected.
 
 
-REGION		TOTAL
+REGION        TOTAL
 ---------- ----------
-R0	   25724660.6
-R1	     25657817
-R2	   25616681.1
-R3	   25760637.7
-R4	     25804822
-R5	   25853466.1
-R6	   25883920.3
-R7	   25821349.9
+R0       25724660.6
+R1         25657817
+R2       25616681.1
+R3       25760637.7
+R4         25804822
+R5       25853466.1
+R6       25883920.3
+R7       25821349.9
 
 8 rows selected.
 
@@ -469,11 +464,11 @@ PLAN_TABLE_OUTPUT
 Plan hash value: 3354199363
 
 -----------------------------------------------------------------------------
-| Id  | Operation	    | Name  | Rows  | Bytes | Cost (%CPU)| Time     |
+| Id  | Operation        | Name  | Rows  | Bytes | Cost (%CPU)| Time     |
 -----------------------------------------------------------------------------
-|   0 | SELECT STATEMENT    |	    |	  8 |	128 |  1172   (3)| 00:00:01 |
-|   1 |  HASH GROUP BY	    |	    |	  8 |	128 |  1172   (3)| 00:00:01 |
-|*  2 |   FILTER	    |	    |	    |	    |		 |	    |
+|   0 | SELECT STATEMENT    |        |      8 |    128 |  1172   (3)| 00:00:01 |
+|   1 |  HASH GROUP BY        |        |      8 |    128 |  1172   (3)| 00:00:01 |
+|*  2 |   FILTER        |        |        |        |         |        |
 |*  3 |    TABLE ACCESS FULL| VENTA | 85157 |  1330K|  1170   (3)| 00:00:01 |
 -----------------------------------------------------------------------------
 
@@ -481,23 +476,23 @@ Predicate Information (identified by operation id):
 ---------------------------------------------------
 
    2 - filter(TRUNC(SYSDATE@!,'fmmm')>ADD_MONTHS(TRUNC(SYSDATE@!,'fmmm')
-	      ,(-1)))
+          ,(-1)))
    3 - filter("FECHA">=ADD_MONTHS(TRUNC(SYSDATE@!,'fmmm'),(-1)) AND
-	      "FECHA"<TRUNC(SYSDATE@!,'fmmm'))
+          "FECHA"<TRUNC(SYSDATE@!,'fmmm'))
 
 18 rows selected.
 
 
-REGION		TOTAL
+REGION        TOTAL
 ---------- ----------
-R0	   25724660.6
-R1	     25657817
-R2	   25616681.1
-R3	   25760637.7
-R4	     25804822
-R5	   25853466.1
-R6	   25883920.3
-R7	   25821349.9
+R0       25724660.6
+R1         25657817
+R2       25616681.1
+R3       25760637.7
+R4         25804822
+R5       25853466.1
+R6       25883920.3
+R7       25821349.9
 
 8 rows selected.
 
@@ -506,14 +501,14 @@ Analizar resultados (plan y datos) [Enter] para continuar
 
 ===> 7b. Desglose del costo de ambos planes: I/O y CPU
 
-STATEMENT_ID			       ID OPERACION				    COST    IO_COST CPU_COST_APROX
+STATEMENT_ID                   ID OPERACION                    COST    IO_COST CPU_COST_APROX
 ------------------------------ ---------- ----------------------------------- ---------- ---------- --------------
-con_im					0 SELECT STATEMENT			      74	 43		31
-con_im					1 HASH GROUP BY 			      74	 43		31
-con_im					3 TABLE ACCESS INMEMORY FULL		      73	 43		30
-sin_im					0 SELECT STATEMENT			    1172       1143		29
-sin_im					1 HASH GROUP BY 			    1172       1143		29
-sin_im					3 TABLE ACCESS FULL			    1170       1143		27
+con_im                    0 SELECT STATEMENT                  74     43        31
+con_im                    1 HASH GROUP BY                   74     43        31
+con_im                    3 TABLE ACCESS INMEMORY FULL              73     43        30
+sin_im                    0 SELECT STATEMENT                1172       1143        29
+sin_im                    1 HASH GROUP BY                 1172       1143        29
+sin_im                    3 TABLE ACCESS FULL                1170       1143        27
 
 6 rows selected.
 
@@ -533,23 +528,23 @@ PLAN_TABLE_OUTPUT
 Plan hash value: 3354199363
 
 --------------------------------------------------------------------------------------
-| Id  | Operation		     | Name  | Rows  | Bytes | Cost (%CPU)| Time     |
+| Id  | Operation             | Name  | Rows  | Bytes | Cost (%CPU)| Time     |
 --------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT	     |	     |	   8 |	 128 |	  74  (42)| 00:00:01 |
-|   1 |  HASH GROUP BY		     |	     |	   8 |	 128 |	  74  (42)| 00:00:01 |
-|*  2 |   FILTER		     |	     |	     |	     |		  |	     |
-|*  3 |    TABLE ACCESS INMEMORY FULL| VENTA | 85157 |	1330K|	  73  (42)| 00:00:01 |
+|   0 | SELECT STATEMENT         |         |       8 |     128 |      74  (42)| 00:00:01 |
+|   1 |  HASH GROUP BY             |         |       8 |     128 |      74  (42)| 00:00:01 |
+|*  2 |   FILTER             |         |         |         |          |         |
+|*  3 |    TABLE ACCESS INMEMORY FULL| VENTA | 85157 |    1330K|      73  (42)| 00:00:01 |
 --------------------------------------------------------------------------------------
 
 Predicate Information (identified by operation id):
 ---------------------------------------------------
 
    2 - filter(TRUNC(SYSDATE@!,'fmmm')>ADD_MONTHS(TRUNC(SYSDATE@!,'fmmm'),(-1))
-	      )
+          )
    3 - inmemory("FECHA">=ADD_MONTHS(TRUNC(SYSDATE@!,'fmmm'),(-1)) AND
-	      "FECHA"<TRUNC(SYSDATE@!,'fmmm'))
+          "FECHA"<TRUNC(SYSDATE@!,'fmmm'))
        filter("FECHA">=ADD_MONTHS(TRUNC(SYSDATE@!,'fmmm'),(-1)) AND
-	      "FECHA"<TRUNC(SYSDATE@!,'fmmm'))
+          "FECHA"<TRUNC(SYSDATE@!,'fmmm'))
 
 20 rows selected.
 
@@ -563,11 +558,11 @@ PLAN_TABLE_OUTPUT
 Plan hash value: 976369476
 
 -------------------------------------------------------------------------------------
-| Id  | Operation		    | Name  | Rows  | Bytes | Cost (%CPU)| Time     |
+| Id  | Operation            | Name  | Rows  | Bytes | Cost (%CPU)| Time     |
 -------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT	    |	    |	  8 |	128 |	 76  (44)| 00:00:01 |
-|   1 |  HASH GROUP BY		    |	    |	  8 |	128 |	 76  (44)| 00:00:01 |
-|*  2 |   TABLE ACCESS INMEMORY FULL| VENTA |  2740 | 43840 |	 75  (43)| 00:00:01 |
+|   0 | SELECT STATEMENT        |        |      8 |    128 |     76  (44)| 00:00:01 |
+|   1 |  HASH GROUP BY            |        |      8 |    128 |     76  (44)| 00:00:01 |
+|*  2 |   TABLE ACCESS INMEMORY FULL| VENTA |  2740 | 43840 |     75  (43)| 00:00:01 |
 -------------------------------------------------------------------------------------
 
 Predicate Information (identified by operation id):
@@ -594,26 +589,23 @@ ORACLE instance shut down.
 ORACLE instance started.
 
 Total System Global Area 1603287928 bytes
-Fixed Size		    4922232 bytes
-Variable Size		  402653184 bytes
-Database Buffers	 1191182336 bytes
-Redo Buffers		    4530176 bytes
+Fixed Size            4922232 bytes
+Variable Size          402653184 bytes
+Database Buffers     1191182336 bytes
+Redo Buffers            4530176 bytes
 Database mounted.
 Database opened.
 ===> 9b. Comprobando que la In-Memory Area ya no existe y que memory_target
 regresó a su valor original
 
 Total System Global Area 1603287928 bytes
-Fixed Size		    4922232 bytes
-Variable Size		  402653184 bytes
-Database Buffers	 1191182336 bytes
-Redo Buffers		    4530176 bytes
+Fixed Size            4922232 bytes
+Variable Size          402653184 bytes
+Database Buffers     1191182336 bytes
+Redo Buffers            4530176 bytes
 
-NAME				     TYPE	 VALUE
+NAME                     TYPE     VALUE
 ------------------------------------ ----------- ------------------------------
-memory_target			     big integer 0
+memory_target                 big integer 0
 sys@free> 
-
 ```
-
-
